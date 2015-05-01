@@ -1,7 +1,8 @@
-{% set rsync = salt['grains.filter_by']({
+{% set rsyncd = salt['grains.filter_by']({
     'Debian': {
-        'pkg': 'rsyncd',
-        'service': 'rsyncd',
-        'config': '/etc/rsyncd.conf',
+        'pkg': 'rsync',
+        'service': 'rsync',
+        'configfile': '/etc/rsyncd.conf',
+        'secretsfile': '/etc/rsyncd.secrets'
     },
-}, merge=salt['pillar.get']('rsync:lookup')) %}
+}, merge=salt['pillar.get']('rsyncd:lookup')) %}

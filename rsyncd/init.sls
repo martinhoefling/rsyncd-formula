@@ -1,8 +1,18 @@
-{% from "template/map.jinja" import template with context %}
+{% from "rsyncd/map.jinja" import rsyncd with context %}
 
-template:
+rsync:
   pkg.installed:
-    - name: {{ template.pkg }}
+    - name: {{ rsyncd.pkg }}
   service.running:
-    - name: {{ template.service }}
+    - name: {{ rsyncd.service }}
     - enable: True
+
+{% if grains.os_family == 'Debian' %}
+/etc/default/rsync:
+  file.replace:
+    - pattern: ^.*RSYNC_ENABLE=.*$
+    - repl: RSYNC_ENABLE=true
+    - append_if_not_found: True
+    - watch_in:
+      - service: rsync
+{% endif %}
