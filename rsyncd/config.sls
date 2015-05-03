@@ -16,5 +16,6 @@ rsyncd_secrets_file:
     - watch_in:
       - service: rsync
     - source: salt://rsyncd/files/secrets.jinja
+    - mode: 640
     - template: jinja
 {% endif %}
