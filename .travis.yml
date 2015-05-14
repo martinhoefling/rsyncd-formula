@@ -31,4 +31,4 @@ script:
   # Idempotence check
   - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc > /tmp/second
   - cat /tmp/second
-  - grep '^Not Run:' /tmp/second && { echo 'Idempotence check failed'; exit 1; } || { echo 'Imdempotence passes'; exit 0; }
+  - ! grep -q '^Not Run:' /tmp/second
