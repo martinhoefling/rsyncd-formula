@@ -4,7 +4,7 @@ python:
 
 before_install:
   - sudo apt-get update
-  - curl -L http://bootstrap.saltstack.org | sudo sh -s -- git develop
+  - curl -L http://bootstrap.saltstack.org | sudo BS_PIP_ALLOWED=1 BS_ECHO_DEBUG=1 sh -s -- stable
 
 install:
   - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
