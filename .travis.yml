@@ -14,3 +14,4 @@ install:
 
 script:
   - sudo salt-call state.show_highstate --local --retcode-passthrough --config-dir=test/etc
+  - sudo salt-call state.highstate --local --retcode-passthrough --config-dir=test/etc
