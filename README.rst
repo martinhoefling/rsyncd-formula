@@ -24,3 +24,12 @@ Installs the rsync package, and starts the rsyncd service.
 ------------
 
 Configure the rsync daemon by writing an rsync.conf and rsync secrets (optional).
+
+Testing
+=======
+
+As you can read in .travis.yml, testing is a matter of symlinking this
+directory to /srv/formula (because we can't use relative paths in file_roots /
+pillar_roots) and running::
+
+  salt-call state.show_highstate --local --retcode-passthrough --config-dir=test/etc
