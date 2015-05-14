@@ -16,14 +16,19 @@ before_install:
 
 install:
   - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
-  # See what kind of travis box you're on
-  # to help with making your states compatible with travis
+  # See what kind of travis box you're on to help with making your states
+  # compatible with travis
   - sudo salt-call grains.items --local
 
 script:
   - sudo salt-call state.show_sls $STATE --local --retcode-passthrough --config-dir=test/etc
   - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc
-  # Idempotence check
-  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc | grep '^Not Run:' && {echo 'Idempotence check failed'; exit 1}
+
+  # For debugging purpose
   - cat /etc/default/rsync
   - cat /etc/rsyncd.conf
+
+  # Idempotence check
+  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc > /tmp/second
+  - grep '^Not Run:' /tmp/second && { echo 'Idempotence check failed'; exit 1; } || { echo 'Imdempotence passes'; exit 0; }
+  - cat /tmp/second
