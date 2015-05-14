@@ -6,6 +6,9 @@ env:
   global:
     - BS_PIP_ALLOWED=1
     - BS_ECHO_DEBUG=1
+  matrix:
+    - STATE=rsyncd
+    - STATE=rsyncd.config
 
 before_install:
   - sudo apt-get update
@@ -18,7 +21,7 @@ install:
   - sudo salt-call grains.items --local
 
 script:
-  - sudo salt-call state.show_highstate --local --retcode-passthrough --config-dir=test/etc
-  - sudo salt-call state.highstate --local --retcode-passthrough --config-dir=test/etc
+  - sudo salt-call state.show_sls $STATE --local --retcode-passthrough --config-dir=test/etc
+  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc
   - cat /etc/default/rsync
   - cat /etc/rsyncd.conf
