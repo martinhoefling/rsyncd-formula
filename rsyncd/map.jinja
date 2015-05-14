@@ -5,4 +5,10 @@
         'configfile': '/etc/rsyncd.conf',
         'secretsfile': '/etc/rsyncd.secrets'
     },
+    'Arch': {
+        'pkg': 'rsync',
+        'service': 'rsyncd',
+        'configfile': '/etc/rsyncd.conf',
+        'secretsfile': '/etc/rsyncd.secrets'
+    },
 }, merge=salt['pillar.get']('rsyncd:lookup')) %}
