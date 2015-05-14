@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/martinhoefling/rsyncd-formula.svg?branch=master
+    :target: https://travis-ci.org/martinhoefling/rsyncd-formula
+
 ================
 rsyncd-formula
 ================
