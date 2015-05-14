@@ -2,9 +2,14 @@ language: python
 python:
   - '2.7'
 
+env:
+  global:
+    - BS_PIP_ALLOWED=1
+    - BS_ECHO_DEBUG=1
+
 before_install:
   - sudo apt-get update
-  - curl -L http://bootstrap.saltstack.org | sudo BS_PIP_ALLOWED=1 BS_ECHO_DEBUG=1 sh -s -- stable
+  - curl -L http://bootstrap.saltstack.org | sudo -E sh -s -- stable
 
 install:
   - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
