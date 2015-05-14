@@ -23,5 +23,7 @@ install:
 script:
   - sudo salt-call state.show_sls $STATE --local --retcode-passthrough --config-dir=test/etc
   - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc
+  # Idempotence check
+  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc | grep '^Not Run:' && {echo 'Idempotence check failed'; exit 1}
   - cat /etc/default/rsync
   - cat /etc/rsyncd.conf
