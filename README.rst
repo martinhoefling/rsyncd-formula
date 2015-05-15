@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/martinhoefling/rsyncd-formula.svg?branch=master
+    :target: https://travis-ci.org/martinhoefling/rsyncd-formula
+
 ================
 rsyncd-formula
 ================
@@ -18,9 +21,18 @@ Available states
 ``rsyncd``
 ------------
 
-Installs the rsync package, and starts the rsyncd service.
+Installs the rsync package, and starts the rsyncd service. Note: The rsyncd.conf has to be created manually / via another state. If the state of the config should also be managed via salt, the rsyncd.config state (which pulls rsyncd) should be used instead.
 
 ``rsyncd.config``
 ------------
 
 Configure the rsync daemon by writing an rsync.conf and rsync secrets (optional).
+
+Testing
+=======
+
+As you can read in .travis.yml, testing is a matter of symlinking this
+directory to /srv/formula (because we can't use relative paths in file_roots /
+pillar_roots) and running::
+
+  salt-call state.show_highstate --local --retcode-passthrough --config-dir=test/etc
