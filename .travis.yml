@@ -6,6 +6,7 @@ env:
   global:
     - BS_PIP_ALLOWED=1
     - BS_ECHO_DEBUG=1
+    - SALT_ARGS="--local --retcode-passthrough --pillar-root=test/pillar --file-root=$PWD"
   matrix:
     - STATE=rsyncd
     - STATE=rsyncd.config
@@ -21,14 +22,14 @@ install:
   - sudo salt-call grains.items --local
 
 script:
-  - sudo salt-call state.show_sls $STATE --local --retcode-passthrough --config-dir=test/etc
-  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc
+  - sudo salt-call state.show_sls $STATE $SALT_ARGS
+  - sudo salt-call state.sls $STATE $SALT_ARGS
 
   # For debugging purpose
   - cat /etc/default/rsync
   - test -f /etc/rsyncd.conf && cat /etc/rsyncd.conf || echo "No rsyncd.conf"
 
   # Idempotence check
-  - sudo salt-call state.sls $STATE --local --retcode-passthrough --config-dir=test/etc > /tmp/second
+  - sudo salt-call state.sls $STATE $SALT_ARGS > /tmp/second
   - cat /tmp/second
   - bash -c '! grep -q "^Not Run:" /tmp/second'

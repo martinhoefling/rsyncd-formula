@@ -1,4 +1,0 @@
-base:
-  '*':
-    - rsyncd
-    - rsyncd.config
