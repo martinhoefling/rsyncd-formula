@@ -21,7 +21,7 @@ Available states
 ``rsyncd``
 ------------
 
-Installs the rsync package, and starts the rsyncd service.
+Installs the rsync package, and starts the rsyncd service. Note: The rsyncd.conf has to be created manually / via another state. If the state of the config should also be managed via salt, the rsyncd.config state (which pulls rsyncd) should be used instead.
 
 ``rsyncd.config``
 ------------
