@@ -31,8 +31,6 @@ Configure the rsync daemon by writing an rsync.conf and rsync secrets (optional)
 Testing
 =======
 
-As you can read in .travis.yml, testing is a matter of symlinking this
-directory to /srv/formula (because we can't use relative paths in file_roots /
-pillar_roots) and running::
+This command will apply the `rsyncd` state on localhost with the example pillar. Perfect for testing in containers::
 
-  salt-call state.sls rsyncd --local --retcode-passthrough --file-root=/srv/formula --pillar-root=test/pillar
+    salt-call state.sls rsyncd --local --retcode-passthrough --file-root=$(pwd) --pillar-root=test/pillar
